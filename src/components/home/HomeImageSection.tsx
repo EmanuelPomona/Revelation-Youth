@@ -13,6 +13,14 @@ interface HomeImageSectionProps {
   cta?: string;
   /** True for the first below-fold image so the browser fetches it early. */
   priority?: boolean;
+  /**
+   * "cover" fills/crops the banner. "stretch" expands the whole image to the
+   * full viewport width and at least the viewport height without cropping.
+   */
+  fit?: "cover" | "stretch";
+  /** Intrinsic image dimensions, used by fit="stretch" to size the section. */
+  width?: number;
+  height?: number;
 }
 
 /**
@@ -28,21 +36,43 @@ export default function HomeImageSection({
   href,
   cta,
   priority = false,
+  fit = "cover",
+  width = 2048,
+  height = 2048,
 }: HomeImageSectionProps) {
+  const stretch = fit === "stretch";
+  const stretchedHeight = `max(100vh, calc(100vw * ${height} / ${width}))`;
+
   return (
     <section
       aria-label={title}
-      className="relative flex min-h-[60vh] items-end overflow-hidden sm:min-h-[72vh]"
+      className={
+        stretch
+          ? "relative flex w-screen items-end overflow-hidden bg-revy-ink"
+          : "relative flex min-h-[60vh] items-end overflow-hidden sm:min-h-[72vh]"
+      }
+      style={stretch ? { minHeight: stretchedHeight } : undefined}
     >
       {/* Full-bleed image */}
-      <Image
-        src={image}
-        alt={alt}
-        fill
-        priority={priority}
-        sizes="100vw"
-        className="object-cover"
-      />
+      {stretch ? (
+        <Image
+          src={image}
+          alt={alt}
+          fill
+          priority={priority}
+          sizes="100vw"
+          className="object-fill"
+        />
+      ) : (
+        <Image
+          src={image}
+          alt={alt}
+          fill
+          priority={priority}
+          sizes="100vw"
+          className="object-cover"
+        />
+      )}
 
       {/* Bottom-up scrim keeps text legible over any image */}
       <div

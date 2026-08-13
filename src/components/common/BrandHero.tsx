@@ -32,14 +32,18 @@ export default function BrandHero({
   return (
     <section aria-label="Introduction" className={cn("relative overflow-hidden", className)}>
       <ResponsiveContainer className="flex flex-col items-center py-28 text-center sm:py-36">
-        {eyebrow && <SectionLabel className="mb-8">{eyebrow}</SectionLabel>}
+        {eyebrow && (
+          <SectionLabel className="mb-8 text-white drop-shadow-md">
+            {eyebrow}
+          </SectionLabel>
+        )}
 
-        <EditorialHeading as="h1" size="display" className="text-revy-forest">
+        <EditorialHeading as="h1" size="display" className="text-white drop-shadow-lg">
           {title}
         </EditorialHeading>
 
         {tagline && (
-          <p className="mt-6 font-display text-2xl italic text-revy-ink-soft sm:text-3xl">
+          <p className="mt-6 font-display text-2xl italic text-white drop-shadow-lg sm:text-3xl">
             {tagline}
           </p>
         )}
@@ -47,7 +51,9 @@ export default function BrandHero({
         <TextureAccent variant="hairline" className="mx-auto mt-10 w-24" />
 
         {children && (
-          <div className="mt-10 font-sans text-revy-ink-soft">{children}</div>
+          <div className="mt-10 font-sans font-medium text-white drop-shadow-md">
+            {children}
+          </div>
         )}
       </ResponsiveContainer>
     </section>

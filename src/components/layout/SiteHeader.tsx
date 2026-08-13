@@ -8,6 +8,7 @@ import { navigation } from "@/data/navigation";
 import { siteInfo } from "@/data/siteInfo";
 import { cn } from "@/lib/utils";
 import ResponsiveContainer from "./ResponsiveContainer";
+import ThemeToggle from "./ThemeToggle";
 
 function isActivePath(pathname: string, href: string): boolean {
   if (href === "/") return pathname === "/";
@@ -42,7 +43,7 @@ export default function SiteHeader() {
   }, [menuOpen]);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-revy-stone/20 bg-revy-base/90 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-revy-stone/20 bg-revy-off-white/90 backdrop-blur">
       <ResponsiveContainer
         as="nav"
         aria-label="Primary"
@@ -87,6 +88,10 @@ export default function SiteHeader() {
           })}
         </ul>
 
+        <div className="hidden items-center gap-4 md:flex">
+          <ThemeToggle />
+        </div>
+
         {/* Mobile toggle */}
         <button
           type="button"
@@ -108,7 +113,7 @@ export default function SiteHeader() {
       {menuOpen && (
         <div
           id="mobile-nav"
-          className="animate-fade-in border-t border-revy-stone/20 bg-revy-base md:hidden"
+          className="animate-fade-in border-t border-revy-stone/20 bg-revy-off-white md:hidden"
         >
           <ResponsiveContainer as="ul" className="flex flex-col py-4">
             {navigation.map((item) => {
@@ -130,6 +135,9 @@ export default function SiteHeader() {
                 </li>
               );
             })}
+            <li className="pt-2">
+              <ThemeToggle />
+            </li>
           </ResponsiveContainer>
         </div>
       )}

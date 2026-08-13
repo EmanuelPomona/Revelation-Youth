@@ -7,21 +7,25 @@ import type { Config } from "tailwindcss";
  * reference these tokens (e.g. `bg-revy-base`, `text-revy-forest`, `font-display`).
  */
 const config: Config = {
+  darkMode: "class",
   content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
     extend: {
       colors: {
         revy: {
-          // Backgrounds (dominant)
-          base: "#FBFBF8", // soft white
-          ivory: "#F4F1EA", // soft ivory
-          "ivory-deep": "#ECE7DB",
+          // Backgrounds (dominant) — CSS-variable-backed so they respond to
+          // light/dark/system mode. See globals.css for the variable values.
+          base: "rgb(var(--revy-base) / <alpha-value>)",
+          "off-white": "rgb(var(--revy-off-white) / <alpha-value>)",
+          ivory: "rgb(var(--revy-ivory) / <alpha-value>)",
+          "ivory-deep": "rgb(var(--revy-ivory-deep) / <alpha-value>)",
+          sage: "rgb(var(--revy-sage) / <alpha-value>)",
           // Text
-          ink: "#23231F", // charcoal — primary body
-          "ink-soft": "#4A4A44",
-          "ink-muted": "#8A887F", // stone gray — captions/meta
+          ink: "rgb(var(--revy-ink) / <alpha-value>)", // primary body
+          "ink-soft": "rgb(var(--revy-ink-soft) / <alpha-value>)",
+          "ink-muted": "rgb(var(--revy-ink-muted) / <alpha-value>)", // captions/meta
           // Primary accents
-          forest: "#1F3D2B",
+          forest: "rgb(var(--revy-forest) / <alpha-value>)",
           moss: "#3C5A40",
           olive: "#6B7150",
           teal: "#3E6F6A",
@@ -30,7 +34,7 @@ const config: Config = {
           gold: "#C9A86A", // champagne — sparing
           "gold-soft": "#E3D2AE",
           charcoal: "#33332E",
-          stone: "#A9A79C",
+          stone: "rgb(var(--revy-stone) / <alpha-value>)",
           // Supporting tones (use rarely, for depth)
           "dark-green": "#14241A",
           "dark-gray-green": "#2C342C",

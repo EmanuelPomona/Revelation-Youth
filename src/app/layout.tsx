@@ -4,6 +4,7 @@ import "./globals.css";
 import { siteInfo } from "@/data/siteInfo";
 import SiteHeader from "@/components/layout/SiteHeader";
 import SiteBackground from "@/components/layout/SiteBackground";
+import ThemeProvider from "@/components/layout/ThemeProvider";
 
 // Editorial display serif (fallback for Peranory/Amoresa until licensed).
 const display = Cormorant_Garamond({
@@ -44,16 +45,22 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${display.variable} ${sans.variable}`}>
+    <html
+      lang="en"
+      className={`${display.variable} ${sans.variable}`}
+      suppressHydrationWarning
+    >
       <body className="flex min-h-screen flex-col">
-        <a href="#main" className="revy-skip-link">
-          Skip to content
-        </a>
-        <SiteBackground />
-        <SiteHeader />
-        <main id="main" className="flex flex-1 flex-col">
-          {children}
-        </main>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <a href="#main" className="revy-skip-link">
+            Skip to content
+          </a>
+          <SiteBackground />
+          <SiteHeader />
+          <main id="main" className="flex flex-1 flex-col">
+            {children}
+          </main>
+        </ThemeProvider>
       </body>
     </html>
   );

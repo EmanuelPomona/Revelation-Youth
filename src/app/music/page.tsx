@@ -16,7 +16,7 @@ export default function MusicPage() {
   const spotifyArtist = socialLinks.find((l) => l.label === "Spotify");
 
   return (
-    <div className="grow bg-white py-20 sm:py-28">
+    <div className="grow bg-revy-off-white py-20 sm:py-28">
       <ResponsiveContainer>
         <PageIntro
           label="Music"

@@ -28,7 +28,21 @@ export const musicReleases: MusicRelease[] = [
     coverImage: "/assets/music/encounter-cover.jpg",
     spotifyUrl: "https://open.spotify.com/track/1wKwWf3PBUPKL7hqHkwjxE",
     youtubeUrl: "https://www.youtube.com/watch?v=ITwwDUzPnEs",
-    lyrics: "[ADD LYRICS HERE]",
+    lyrics: `VERSE:
+JESUS I'M IN AWE AND WONDER
+I NEVER WANT TO LOSE YOUR PRESENCE
+THERE IS NOTHING ELSE I WANNA DO
+BUT TO BE HERE AND DWELL WITH YOU ALONE
+
+CHORUS:
+ALL I AM IS FOR THE KING ALL I AM IS FOR YOUR GLORY
+JESUS I SURRENDER ALL IF IT MEANS A LIFE OF HEAVEN
+LORD I GIVE IT ALL TO YOU
+
+BRIDGE:
+I LEAVE ALL THE DISTRACTIONS
+I JUST WANNA BEHOLD YOU ALL MY HEART AND WORSHIP
+IT BELONGS TO YOU JESUS`,
     chordsAvailable: false,
     chordsNote: "Chords coming soon.",
   },

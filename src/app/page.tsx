@@ -23,7 +23,7 @@ export default function HomePage() {
     <>
       {/* 1 — Hero */}
       <BrandHero>
-        <p className="text-sm text-revy-ink-muted">
+        <p className="text-sm">
           {siteInfo.churchName}&ensp;·&ensp;{siteInfo.serviceTime}
         </p>
       </BrandHero>
@@ -39,6 +39,9 @@ export default function HomePage() {
           href={banner.href}
           cta={banner.cta}
           priority={i === 0}
+          fit={banner.fit}
+          width={banner.width}
+          height={banner.height}
         />
       ))}
 

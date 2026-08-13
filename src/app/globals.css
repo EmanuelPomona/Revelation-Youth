@@ -9,24 +9,53 @@
  */
 
 @layer base {
+  :root {
+    /* Light mode (default) — values as RGB triplets for Tailwind's
+       `rgb(var(--x) / <alpha-value>)` opacity syntax. Keep in sync with the
+       `revy` color entries in tailwind.config.ts. */
+    --revy-base: 251 251 248;
+    --revy-off-white: 242 240 239;
+    --revy-ivory: 244 241 234;
+    --revy-ivory-deep: 236 231 219;
+    --revy-sage: 172 209 175;
+    --revy-ink: 35 35 31;
+    --revy-ink-soft: 74 74 68;
+    --revy-ink-muted: 138 136 127;
+    --revy-forest: 31 61 43;
+    --revy-stone: 169 167 156;
+  }
+
+  .dark {
+    --revy-base: 24 27 24;
+    --revy-off-white: 30 33 29;
+    --revy-ivory: 33 37 32;
+    --revy-ivory-deep: 40 44 38;
+    --revy-sage: 47 74 52;
+    --revy-ink: 237 235 228;
+    --revy-ink-soft: 199 197 187;
+    --revy-ink-muted: 150 148 138;
+    --revy-forest: 143 184 151;
+    --revy-stone: 90 92 82;
+  }
+
   html {
     -webkit-text-size-adjust: 100%;
     scroll-behavior: smooth;
   }
 
   body {
-    @apply bg-revy-base font-sans text-revy-ink antialiased;
+    @apply bg-revy-base font-sans text-revy-ink antialiased transition-colors duration-300;
   }
 
   /* Editorial selection accent */
   ::selection {
     background-color: rgba(201, 168, 106, 0.25); /* revy-gold @ 25% */
-    color: #1f3d2b; /* revy-forest */
+    color: rgb(var(--revy-forest));
   }
 
   /* Visible, on-brand focus state for keyboard users */
   :focus-visible {
-    outline: 2px solid #1f3d2b; /* revy-forest */
+    outline: 2px solid rgb(var(--revy-forest));
     outline-offset: 2px;
     border-radius: 2px;
   }

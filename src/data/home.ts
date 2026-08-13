@@ -14,9 +14,24 @@ export type HomeBanner = {
   href?: string;
   /** CTA label shown when href is set. */
   cta?: string;
+  /** "stretch" shows the full image full-bleed without cropping. */
+  fit?: "cover" | "stretch";
+  /** Intrinsic image dimensions, used when fit is "stretch". */
+  width?: number;
+  height?: number;
 };
 
 export const homeBanners: HomeBanner[] = [
+  {
+    id: "theme",
+    eyebrow: "Theme of the Month",
+    title: "Intimacy",
+    image: "/assets/home/intimacy.jpg",
+    alt: "Theme of the Month artwork for Intimacy",
+    fit: "stretch",
+    width: 2048,
+    height: 1143,
+  },
   {
     id: "album",
     eyebrow: "Music",
@@ -25,6 +40,9 @@ export const homeBanners: HomeBanner[] = [
     alt: "Encounter album cover by Revelation Youth",
     href: "/music",
     cta: "Listen now",
+    fit: "stretch",
+    width: 2048,
+    height: 2048,
   },
   {
     id: "team",
@@ -32,12 +50,5 @@ export const homeBanners: HomeBanner[] = [
     title: "Meet the Team",
     image: "/assets/home/thegroup.jpg",
     alt: "Revelation Youth team group photo",
-  },
-  {
-    id: "theme",
-    eyebrow: "Theme of the Month",
-    title: "Intimacy",
-    image: "/assets/home/intimacy.jpg",
-    alt: "Theme of the Month artwork for Intimacy",
   },
 ];
