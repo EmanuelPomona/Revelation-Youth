@@ -57,24 +57,30 @@ export default function MusicDetailLayout({ release }: MusicDetailLayoutProps) {
 
           <TextureAccent variant="hairline" className="my-8" />
 
-          <div className="flex flex-wrap gap-4">
-            <LinkButton
-              href={release.spotifyUrl}
-              variant="solid"
-              external
-              aria-label={`Listen to ${release.title} on Spotify`}
-            >
-              Listen on Spotify
-            </LinkButton>
-            <LinkButton
-              href={release.youtubeUrl}
-              variant="outline"
-              external
-              aria-label={`Watch ${release.title} on YouTube`}
-            >
-              Watch on YouTube
-            </LinkButton>
-          </div>
+          {(release.spotifyUrl || release.youtubeUrl) && (
+            <div className="flex flex-wrap gap-4">
+              {release.spotifyUrl && (
+                <LinkButton
+                  href={release.spotifyUrl}
+                  variant="solid"
+                  external
+                  aria-label={`Listen to ${release.title} on Spotify`}
+                >
+                  Listen on Spotify
+                </LinkButton>
+              )}
+              {release.youtubeUrl && (
+                <LinkButton
+                  href={release.youtubeUrl}
+                  variant="outline"
+                  external
+                  aria-label={`Watch ${release.title} on YouTube`}
+                >
+                  Watch on YouTube
+                </LinkButton>
+              )}
+            </div>
+          )}
 
           {videoId && (
             <div className="mt-10 w-full">

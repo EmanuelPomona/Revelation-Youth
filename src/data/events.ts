@@ -33,10 +33,10 @@ export type Event = {
 export const eventCategories: EventCategory[] = [
   {
     slug: "worship-nights",
-    title: "Worship Night",
+    title: "Bible Study",
     image: "/assets/events/worship-night.jpg",
     description:
-      "Join us for a night of worship and prayer.",
+      "Join us as we study Scripture and grow together.",
     gradientFrom: "#1F3D2B",
     gradientTo: "#14241A",
   },
@@ -50,16 +50,16 @@ export const eventCategories: EventCategory[] = [
   },
   {
     slug: "conferences",
-    title: "Conferences",
+    title: "Outreach",
     image: "/assets/events/conferences.jpg",
-    description: "Join us in revivals, crusades, and more.",
+    description: "Join us in revivals, crusades, and community outreach.",
     gradientFrom: "#3E6F6A",
     gradientTo: "#1F3D2B",
   },
 ];
 
 /**
- * Individual events. No worship nights or conferences exist yet — show the
+ * Individual events. No Bible Study or Outreach events exist yet — show the
  * EventEmptyState component for those category pages.
  */
 export const events: Event[] = [

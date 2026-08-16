@@ -5,7 +5,7 @@ import { eventCategories } from "@/data/events";
 export const metadata: Metadata = {
   title: "Events",
   description:
-    "View upcoming youth services, worship nights, and conferences at Revelation Youth.",
+    "View upcoming youth services, Bible Study, and Outreach events at Revelation Youth.",
 };
 
 export default function EventsPage() {
