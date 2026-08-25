@@ -5,7 +5,8 @@
 /*
  * Revelation Youth global styles.
  * Tokens live in tailwind.config.ts. Keep this file for base element styling,
- * focus behavior, and small shared utilities only — no page-specific styles.
+ * focus behavior, the shared motion system, and small shared utilities only —
+ * no page-specific styles.
  */
 
 @layer base {
@@ -23,6 +24,21 @@
     --revy-ink-muted: 138 136 127;
     --revy-forest: 31 61 43;
     --revy-stone: 169 167 156;
+    /* Warm accent lifted from the Encounter cover art. Used sparingly. */
+    --revy-clay: 170 84 47;
+
+    /* Motion system.
+       Built-in CSS easings are too weak for UI; these are the project curves.
+       Every animation and transition in the codebase references one of them
+       instead of hand-rolling a cubic-bezier. */
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+    --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+
+    --dur-press: 160ms;
+    --dur-ui: 220ms;
+    --dur-panel: 280ms;
+    --dur-reveal: 700ms;
   }
 
   .dark {
@@ -36,6 +52,7 @@
     --revy-ink-muted: 150 148 138;
     --revy-forest: 143 184 151;
     --revy-stone: 90 92 82;
+    --revy-clay: 205 121 82;
   }
 
   html {
@@ -44,7 +61,9 @@
   }
 
   body {
-    @apply bg-revy-base font-sans text-revy-ink antialiased transition-colors duration-300;
+    @apply bg-revy-base font-sans text-revy-ink antialiased;
+    transition: background-color var(--dur-panel) var(--ease-out),
+      color var(--dur-panel) var(--ease-out);
   }
 
   /* Editorial selection accent */
@@ -59,6 +78,12 @@
     outline-offset: 2px;
     border-radius: 2px;
   }
+
+  /* While the header sits over the hero artwork its contents are set in white,
+     and a dark forest ring all but disappears against the plate. */
+  header[data-on-artwork="true"] :focus-visible {
+    outline-color: #ffffff;
+  }
 }
 
 @layer components {
@@ -71,14 +96,184 @@
   }
 }
 
-/* Respect reduced-motion preferences globally */
+/* ==========================================================================
+   Motion
+   --------------------------------------------------------------------------
+   All keyframes animate `transform` or `opacity` only, so they stay on the
+   compositor. Anything scroll-linked uses CSS scroll-driven animations or
+   IntersectionObserver — never a scroll event listener.
+   ========================================================================== */
+
+@keyframes revy-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes revy-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes revy-rule {
+  from {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  to {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+/* The hero plate settles out of an over-scale as the page arrives. */
+@keyframes revy-plate-settle {
+  from {
+    transform: scale(1.14);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+/* Barely-there ambient drift so the hero is never completely dead. The
+   artwork is a long-exposure blur; this keeps that instant feeling alive. */
+@keyframes revy-drift {
+  0% {
+    transform: scale(1.06) translate3d(0, 0, 0);
+  }
+  50% {
+    transform: scale(1.11) translate3d(-1.4%, -1.1%, 0);
+  }
+  100% {
+    transform: scale(1.06) translate3d(0, 0, 0);
+  }
+}
+
+/* Scroll-linked parallax for full-bleed section imagery. */
+@keyframes revy-parallax {
+  from {
+    transform: translate3d(0, -6%, 0) scale(1.16);
+  }
+  to {
+    transform: translate3d(0, 6%, 0) scale(1.16);
+  }
+}
+
+@layer utilities {
+  /* --- Hero load sequence ------------------------------------------------ */
+
+  /* Staggered entrance. Callers set `--enter-delay` inline on the element
+     itself (never on a shared parent, which would restyle every child). */
+  .revy-enter {
+    animation: revy-rise 820ms var(--ease-out) both;
+    animation-delay: var(--enter-delay, 0ms);
+  }
+
+  .revy-enter-fade {
+    animation: revy-fade 900ms var(--ease-out) both;
+    animation-delay: var(--enter-delay, 0ms);
+  }
+
+  .revy-enter-rule {
+    transform-origin: center;
+    animation: revy-rule 900ms var(--ease-out) both;
+    animation-delay: var(--enter-delay, 0ms);
+  }
+
+  .revy-plate {
+    animation: revy-plate-settle 2000ms var(--ease-out) both;
+  }
+
+  .revy-drift {
+    animation: revy-drift 64s var(--ease-in-out) 2s infinite both;
+  }
+
+  /* --- Scroll reveal ----------------------------------------------------- */
+
+  .revy-reveal {
+    opacity: 0;
+    transform: translate3d(0, 22px, 0);
+    transition: opacity var(--dur-reveal) var(--ease-out),
+      transform var(--dur-reveal) var(--ease-out);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  .revy-reveal[data-visible="true"] {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  /* --- Parallax ---------------------------------------------------------- */
+
+  /* Progressive enhancement: browsers without scroll-driven animations get a
+     static, correctly-framed image instead of a JS fallback. */
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .revy-parallax {
+        animation: revy-parallax linear both;
+        animation-timeline: view();
+        animation-range: entry 0% exit 100%;
+      }
+    }
+  }
+
+  /* --- Press feedback ---------------------------------------------------- */
+
+  .revy-press {
+    transition: transform var(--dur-press) var(--ease-out);
+  }
+  .revy-press:active {
+    transform: scale(0.97);
+  }
+}
+
+/*
+ * Reduced motion: fewer and gentler, not zero. Position changes, parallax, and
+ * the ambient drift are removed; opacity fades that aid comprehension stay so
+ * content does not simply pop into place.
+ */
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .revy-enter,
+  .revy-enter-rule {
+    animation: revy-fade 400ms var(--ease-out) both;
+    animation-delay: var(--enter-delay, 0ms);
+  }
+
+  .revy-plate,
+  .revy-drift {
+    animation: none;
+  }
+
+  .revy-reveal {
+    transform: none;
+    transition: opacity 400ms var(--ease-out);
+  }
+
+  .revy-reveal[data-visible="true"] {
+    transform: none;
+  }
+
+  .revy-press:active {
+    transform: none;
+  }
+
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
   }
 }

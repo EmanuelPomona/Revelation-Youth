@@ -31,7 +31,9 @@ export default function CardShell({
   const classes = cn(
     "relative overflow-hidden rounded-revy border border-revy-stone/30 bg-revy-base",
     isInteractive &&
-      "transition duration-300 ease-out hover:-translate-y-1 hover:border-revy-stone/50 hover:shadow-soft",
+      // Hover motion is gated: on touch, a tap fires a false :hover and the
+      // card would lift and stay lifted.
+      "transition duration-300 ease-revy-out [@media(hover:hover)]:hover:-translate-y-1 [@media(hover:hover)]:hover:border-revy-stone/50 [@media(hover:hover)]:hover:shadow-soft",
     className,
   );
 

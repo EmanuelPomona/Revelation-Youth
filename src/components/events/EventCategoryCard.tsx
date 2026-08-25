@@ -3,6 +3,7 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import type { EventCategory } from "@/data/events";
 import { cn } from "@/lib/utils";
+import { publicAssetExists } from "@/lib/publicAsset";
 
 interface EventCategoryCardProps {
   category: EventCategory;
@@ -38,14 +39,17 @@ export default function EventCategoryCard({
         }}
       />
 
-      {/* Photo (graceful — if absent the gradient shows) */}
-      <Image
-        src={category.image}
-        alt=""
-        fill
-        sizes="(max-width: 768px) 100vw, 33vw"
-        className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-      />
+      {/* Photo. Only mounted when the file is actually present, otherwise the
+          browser paints a broken-image icon over the gradient fallback. */}
+      {publicAssetExists(category.image) && (
+        <Image
+          src={category.image}
+          alt=""
+          fill
+          sizes="(max-width: 768px) 100vw, 33vw"
+          className="object-cover transition-transform duration-700 ease-revy-out [@media(hover:hover)]:group-hover:scale-[1.04]"
+        />
+      )}
 
       {/* Full-panel scrim — ensures text stays legible over photos and gradients */}
       <div

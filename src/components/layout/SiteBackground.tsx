@@ -4,36 +4,35 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 /**
- * Full-width editorial background texture.
+ * Full-width editorial background texture for interior routes.
  *
- * A decorative image layer pinned behind all page content. It renders at the
- * Home uses the tall stretched art treatment. Interior landing pages keep the
- * texture cropped to the viewport so it does not run to the bottom of the page.
+ * Several interior pages sit on a translucent field (`bg-revy-base/75`) and let
+ * this plate read through, which is what keeps them from looking like flat
+ * white documents. Pages with an opaque background simply cover it.
  *
- * Rendered globally; non-events pages let it show through a translucent veil,
- * while the Events routes cover it with a solid wrapper (see those pages).
+ * Home renders nothing here: its hero owns a full-viewport copy of the same
+ * plate, and loading a second one behind it wasted bandwidth on the largest
+ * asset in the project.
  */
 export default function SiteBackground() {
   const pathname = usePathname();
-  const isHome = pathname === "/";
+
+  if (pathname === "/") return null;
 
   return (
     <div
       aria-hidden
-      className={
-        isHome
-          ? "pointer-events-none absolute inset-x-0 top-0 -z-10 h-[max(100vh,calc(100vw*1870/841))] select-none"
-          : "pointer-events-none fixed inset-0 -z-10 select-none"
-      }
+      className="pointer-events-none fixed inset-0 -z-10 select-none"
     >
+      {/* Cropped from the centre and held well back. Anchored to the top it
+          framed the palest band of the plate, which read as a grey smear
+          rather than as foliage. */}
       <Image
         src="/assets/brand/bg-texture2.png"
         alt=""
         fill
-        priority
-        quality={70}
         sizes="100vw"
-        className={isHome ? "object-fill" : "object-cover object-top"}
+        className="object-cover object-center opacity-70 dark:opacity-50"
       />
     </div>
   );
