@@ -24,7 +24,7 @@ Then open http://localhost:3000.
 
 ## Status
 
-Built and running locally. Deployment to Vercel is next.
+Live at https://revelation-youth.vercel.app (deployed on Vercel).
 
 ## Author
 

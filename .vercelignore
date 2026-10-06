@@ -1,0 +1,10 @@
+# Keep uploads to the site source only
+.npm-cache
+node_modules
+.next
+out
+Images
+.claude
+.DS_Store
+.env
+.env*.local
