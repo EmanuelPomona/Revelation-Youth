@@ -5,7 +5,8 @@ The website for the youth ministry of International Miracle Makers Church, built
 ## Features
 
 - **11 pages:** Home, Music (including the *Encounter* release, with a page for each track), Events (worship nights, youth services, and conferences), Devotions, Merch, and Community.
-- **24 reusable React components.** Page content lives in typed data files under `src/data/` instead of being hard-coded into components.
+- **27 reusable React components.** Page content lives in typed data files under `src/data/` instead of being hard-coded into components.
+- **Scroll-reveal motion** on the home page that turns off when a visitor's system asks for reduced motion.
 - **Light and dark themes,** with a toggle.
 - **Responsive layouts** for phones, tablets, and desktops.
 
