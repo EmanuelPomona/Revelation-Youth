@@ -31,6 +31,14 @@ function getTrackRelease(trackSlug: string): MusicRelease | null {
   };
 }
 
+/**
+ * The album's track list is static data, so every song page can be prerendered
+ * instead of being rendered on demand.
+ */
+export function generateStaticParams() {
+  return (album?.tracks ?? []).map((track) => ({ track: track.slug }));
+}
+
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {

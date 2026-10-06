@@ -20,9 +20,9 @@ interface LinkButtonProps {
 const baseByVariant: Record<LinkButtonVariant, string> = {
   link: "group inline-flex items-center gap-1.5 font-sans text-sm font-medium text-revy-forest transition-colors hover:text-revy-moss",
   solid:
-    "inline-flex items-center gap-2 rounded-full bg-revy-forest px-6 py-3 font-sans text-sm font-medium text-revy-base transition-colors hover:bg-revy-moss",
+    "revy-press group inline-flex items-center gap-2 rounded-full bg-revy-forest px-6 py-3 font-sans text-sm font-medium text-revy-base transition-colors hover:bg-revy-moss",
   outline:
-    "inline-flex items-center gap-2 rounded-full border border-revy-forest/30 px-6 py-3 font-sans text-sm font-medium text-revy-forest transition-colors hover:border-revy-gold hover:text-revy-moss",
+    "revy-press group inline-flex items-center gap-2 rounded-full border border-revy-forest/30 px-6 py-3 font-sans text-sm font-medium text-revy-forest transition-colors hover:border-revy-gold hover:text-revy-moss",
 };
 
 /**

@@ -33,6 +33,9 @@ const config: Config = {
           // Secondary accents
           gold: "#C9A86A", // champagne — sparing
           "gold-soft": "#E3D2AE",
+          // Warm accent sampled from the Encounter cover art. Sparing; used to
+          // tie the site to the ministry's own printed work.
+          clay: "rgb(var(--revy-clay) / <alpha-value>)",
           charcoal: "#33332E",
           stone: "rgb(var(--revy-stone) / <alpha-value>)",
           // Supporting tones (use rarely, for depth)
@@ -53,14 +56,25 @@ const config: Config = {
         ],
         sans: [
           "var(--font-sans)",
-          "Inter",
+          "Archivo",
           "ui-sans-serif",
           "system-ui",
           "sans-serif",
         ],
       },
+      transitionTimingFunction: {
+        // Mirrors the --ease-* custom properties in globals.css so Tailwind
+        // utilities and hand-written CSS share one motion vocabulary.
+        "revy-out": "cubic-bezier(0.23, 1, 0.32, 1)",
+        "revy-in-out": "cubic-bezier(0.77, 0, 0.175, 1)",
+        "revy-drawer": "cubic-bezier(0.32, 0.72, 0, 1)",
+      },
       fontSize: {
         // Responsive brand/display sizes (clamp scales with viewport)
+        "display-2xl": [
+          "clamp(3.5rem, 13vw, 11rem)",
+          { lineHeight: "0.92", letterSpacing: "-0.03em" },
+        ],
         "display-xl": [
           "clamp(3rem, 8vw, 6rem)",
           { lineHeight: "1", letterSpacing: "-0.02em" },

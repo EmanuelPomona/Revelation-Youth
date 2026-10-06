@@ -10,7 +10,7 @@ export const siteInfo = {
   email: "emanuelling27@gmail.com", // temporary — may change
   phone: null, // never display a phone number
   address: "3000 S 55th St, Kansas City, KS 66106",
-  serviceTime: "Sundays, 2:30 PM – 3:30 PM",
+  serviceTime: "Sundays, 2:30 PM - 3:30 PM",
 } as const;
 
 export type SiteInfo = typeof siteInfo;

@@ -1,9 +1,10 @@
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 interface SectionLabelProps {
   children: ReactNode;
   className?: string;
+  style?: CSSProperties;
   /** Show the small champagne-gold tick before the label. */
   withMark?: boolean;
 }
@@ -15,10 +16,12 @@ interface SectionLabelProps {
 export default function SectionLabel({
   children,
   className,
+  style,
   withMark = true,
 }: SectionLabelProps) {
   return (
     <span
+      style={style}
       className={cn(
         "inline-flex items-center gap-3 font-sans text-xs font-medium uppercase tracking-label text-revy-ink-muted",
         className,

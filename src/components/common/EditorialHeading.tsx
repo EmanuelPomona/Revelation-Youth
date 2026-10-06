@@ -1,4 +1,4 @@
-import { createElement, type ReactNode } from "react";
+import { createElement, type CSSProperties, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 type HeadingTag = "h1" | "h2" | "h3" | "h4";
@@ -10,10 +10,13 @@ interface EditorialHeadingProps {
   size?: HeadingSize;
   className?: string;
   id?: string;
+  style?: CSSProperties;
 }
 
 const sizeClasses: Record<HeadingSize, string> = {
-  display: "text-display-xl",
+  // "display" is the brand moment on the homepage hero only. Everything else
+  // steps down from "xl".
+  display: "text-display-2xl",
   xl: "text-display-lg",
   lg: "text-4xl sm:text-5xl",
   md: "text-3xl sm:text-4xl",
@@ -31,11 +34,13 @@ export default function EditorialHeading({
   size = "lg",
   className,
   id,
+  style,
 }: EditorialHeadingProps) {
   return createElement(
     as,
     {
       id,
+      style,
       className: cn(
         "font-display font-medium leading-tight text-revy-forest",
         sizeClasses[size],

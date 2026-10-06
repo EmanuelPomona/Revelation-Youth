@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Inter } from "next/font/google";
+import { Archivo, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 import { siteInfo } from "@/data/siteInfo";
 import SiteHeader from "@/components/layout/SiteHeader";
@@ -15,8 +15,10 @@ const display = Cormorant_Garamond({
   display: "swap",
 });
 
-// Clean, readable body sans.
-const sans = Inter({
+// Body and utility sans. A grotesque rather than a neutral UI face: it holds
+// up under the wide letterspacing the Revelation Youth poster artwork uses for
+// its labels, which is where the site's small-caps rhythm comes from.
+const sans = Archivo({
   subsets: ["latin"],
   variable: "--font-sans",
   display: "swap",
@@ -47,6 +49,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      // globals.css sets `scroll-behavior: smooth`; Next needs it declared here
+      // too, or router navigations animate the scroll reset instead of jumping.
+      data-scroll-behavior="smooth"
       className={`${display.variable} ${sans.variable}`}
       suppressHydrationWarning
     >
@@ -55,6 +60,13 @@ export default function RootLayout({
           <a href="#main" className="revy-skip-link">
             Skip to content
           </a>
+
+          {/* Scroll reveals are driven by IntersectionObserver. Without JS the
+              observer never fires, so show the content instead of leaving it
+              stranded at opacity 0. */}
+          <noscript>
+            <style>{`.revy-reveal{opacity:1;transform:none}`}</style>
+          </noscript>
           <SiteBackground />
           <SiteHeader />
           <main id="main" className="flex flex-1 flex-col">

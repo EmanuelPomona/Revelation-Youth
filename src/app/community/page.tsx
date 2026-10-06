@@ -17,7 +17,7 @@ export default function CommunityPage() {
         <PageIntro
           label="Community"
           title="Connect"
-          description="Reach out to Revelation Youth. Whether you have a prayer request, a question, a testimony, or just want to say hello — we'd love to hear from you."
+          description="Reach out to Revelation Youth. Whether you have a prayer request, a question, a testimony, or just want to say hello, we'd love to hear from you."
         />
 
         <div className="mt-14 grid grid-cols-1 gap-6 lg:grid-cols-2">
